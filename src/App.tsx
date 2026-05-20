@@ -239,10 +239,12 @@ export default function App() {
             setIsSubmitting(false);
             return;
           }
+          setStep(5);
         } catch (e) {
-          console.error("解析回應發生錯誤，但請求已送出", e);
+          console.error("解析回應發生錯誤:", e);
+          alert("伺服器回應異常，請檢查 GAS 部署設定是否正確 (例如權限是否設為所有人)。");
+          setIsSubmitting(false);
         }
-        setStep(5);
       }
     } catch (err) {
       console.error(err);
