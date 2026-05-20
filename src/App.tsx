@@ -81,7 +81,7 @@ const NOMINEES: Nominee[] = [
   { id: '112-陳睿勳-校花', category: '校花', classNum: '112', name: '陳睿勳', ig: '@muk49aa_', reason: '溫文儒雅, 可愛男娘', photo: 'https://i.ibb.co/hRrWrzws/112.jpg' },
   { id: '114-張惟綱-校花', category: '校花', classNum: '114', name: '張惟綱', ig: '@vicxia._.0530', reason: '身為台中一中熱音社的惟綱，曾在多次選美比賽獲獎，今天來選校花他也是覺得輕輕鬆鬆，本人真的太漂亮了😻', photo: 'https://i.ibb.co/wZqQF51p/114.jpg' },
   { id: '114-蕭方禹-校花', category: '校花', classNum: '114', name: '蕭方禹', ig: '未提供', reason: '實力與美貌兼具的公主', photo: 'https://i.ibb.co/8n2k6xGT/114.jpg' },
-  { id: '122-王妍恩-校花', category: '校花', classNum: '122', name: '王妍恩', ig: '@yanen9943', reason: '雖然我根本不認識她，但我覺得她很正很可愛，僅此而已∠( ᐛ 」∠)＿', photo: 'https://i.ibb.co/PZS7GG2J/122.jpg' },
+  { id: '122-王妍恩-校花', category: '校花', classNum: '122', name: '王妍恩', ig: '@yanen9943', reason: '雖然我根本不認識她，但我覺得她很正很可愛，僅此而已∠( ᐛ 」∠)＿', photo: 'https://i.ibb.co/ynTP2Qwr/122.jpg' },
   { id: '125-李霈其-校花', category: '校花', classNum: '125', name: '李霈其', ig: '@happ.y0706', reason: '不只外表好看，個性很開朗大方很好相處，會運動會畫畫' },
   { id: '205-陳寬澂-校花', category: '校花', classNum: '205', name: '陳寬澂', ig: '@ckuanc.416' },
   { id: '213-張建畇-校花', category: '校花', classNum: '213', name: '張建畇', ig: '@choir._.59_finale', reason: '合唱團團寵 甜死人的可愛笑容令人著迷', photo: 'https://i.ibb.co/hFCWvZkq/213.jpg' },
@@ -200,7 +200,7 @@ export default function App() {
     };
   }, [step, user]);
 
-  const isSchoolAccount = user?.email.toLowerCase().trim().endsWith('@std.tcfsh.tc.edu.tw');
+  const isSchoolAccount = user?.email.toLowerCase().trim().endsWith('@std.tcfsh.tc.edu.tw') || user?.email.toLowerCase().trim() === 'tcfshcboy@gmail.com';
 
   const handleSubmit = async () => {
     if (honeypot !== '') { setStep(5); return; }
