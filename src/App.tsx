@@ -537,7 +537,8 @@ export default function App() {
                     </div>
                   )}
                 </div>
-
+{/* 暫時遮蔽登入與送出功能 */}
+{/* 
                 {!user ? (
                   <div className="space-y-6 relative z-20">
                     <p className="text-sm text-zinc-200 text-center font-bold">請使用 TCFSH 帳號登入送出投票</p>
@@ -576,6 +577,13 @@ export default function App() {
                     )}
                   </div>
                 )}
+*/}
+
+{/* 新增：替代用的測試狀態提示 */}
+<div className="text-center p-8 bg-zinc-900/80 rounded-2xl border border-zinc-800 relative z-20">
+  <h3 className="text-xl font-bold text-lime-400 mb-2">🚧 目前為投票系統準備階段</h3>
+  <p className="text-zinc-300">目前僅開放預覽名單與介面，正式投票功能於5/21(四)晚上21:00上線，敬請期待！🍡</p>
+</div>
                 
                 <input type="text" value={honeypot} onChange={e => setHoneypot(e.target.value)} className="hidden" tabIndex={-1} autoComplete="off" />
               </div>
