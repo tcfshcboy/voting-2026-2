@@ -26,6 +26,7 @@ import {
 declare global {
   interface Window { 
     google: any; 
+    __googleInitDone?: boolean;
   }
 }
 
@@ -151,8 +152,9 @@ export default function App() {
     let retryTimer: number;
 
     const initializeGoogle = () => {
-      if (step === 4 && !user && window.google?.accounts?.id) {
+      if (step === 4 && !user && window.google?.accounts?.id && !window.__googleInitDone) {
         try {
+          window.__googleInitDone = true;
           window.google.accounts.id.initialize({
             client_id: GOOGLE_CLIENT_ID,
             callback: (res: any) => {
@@ -233,16 +235,28 @@ export default function App() {
         });
         
         try {
-          const result = await response.json();
-          if (result.status === 'error') {
-            alert("投票失敗：" + result.message);
+          const textResult = await response.text();
+          try {
+            const result = JSON.parse(textResult);
+            if (result.status === 'error') {
+              alert("投票失敗：" + result.message);
+              setIsSubmitting(false);
+              return;
+            }
+            setStep(5);
+          } catch (jsonError) {
+            console.error("解析回應發生錯誤:", jsonError);
+            console.error("GAS 伺服器原始回應內容:", textResult);
+            if (textResult.includes("<html")) {
+              alert("伺服器回應了網頁 (HTML) 而非 JSON 資料。\n這通常是因為：\n1. 您的 GAS 沒有設定為「執行身分：我(Me)」或「誰可以存取：所有人(Anyone)」。\n2. 您在 GAS 更改了程式碼但沒有發布「新版本」的部署。\n請按 F12 查看 Console 內的原始回應了解詳情。");
+            } else {
+              alert("伺服器回應異常，請檢查 GAS 部署設定是否正確 (例如權限是否設為所有人)。");
+            }
             setIsSubmitting(false);
-            return;
           }
-          setStep(5);
         } catch (e) {
-          console.error("解析回應發生錯誤:", e);
-          alert("伺服器回應異常，請檢查 GAS 部署設定是否正確 (例如權限是否設為所有人)。");
+          console.error("網路連線發生錯誤:", e);
+          alert("網路連線異常，請確認伺服器狀態。");
           setIsSubmitting(false);
         }
       }
@@ -268,7 +282,7 @@ export default function App() {
           <div>
             <h1 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-lime-400 to-cyan-400 mb-2">投票成功！</h1>
             <p className="text-zinc-400 font-mono mt-4 text-lg">
-              您已完成投票 ! 敬請期待投票結果~<br/>也趕快告訴大家來投票吧 !
+              🍡您已完成投票 ! 敬請期待投票結果~<br/>也趕快告訴大家來投票吧 !
             </p>
           </div>
           <button
@@ -425,11 +439,11 @@ export default function App() {
             >
               <div className="space-y-4">
                 <h1 className="text-3xl sm:text-4xl font-black leading-[1.2] tracking-tight text-white">
-                  <span className="text-lime-400">測試中🍡~歡迎回報問題與更新照片、資訊欄位!</span>
                   <span className="block mb-1">決定你心目中的</span>
                   <span className="text-cyan-400 underline decoration-cyan-400/30 block">
                     TCFSH 校園風雲人物！
                   </span>
+                  <span className="text-lime-400 text-2xl">🍡歡迎回報問題與更新照片、資訊欄位!</span>
                 </h1>
               </div>
 
@@ -515,7 +529,7 @@ export default function App() {
                     <div className="p-2 rounded-xl bg-cyan-400/10 text-cyan-400">
                       <ShieldCheck className="size-6" />
                     </div>
-                    <span className="font-black text-xl">一中生身分驗證</span>
+                    <span className="font-black text-xl text-white">一中生身分驗證</span>
                   </div>
                   {user && isSchoolAccount && (
                     <div className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-lime-400/50 bg-lime-400/10 text-lime-400 font-bold text-xs">
@@ -557,7 +571,7 @@ export default function App() {
                     {!isSchoolAccount && (
                       <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-bold flex items-start gap-2">
                         <AlertTriangle className="size-5 shrink-0" />
-                        <p>這不是學校帳號！為防止灌票，系統已阻擋非 @std.tcfsh.tc.edu.tw 之帳號進行投票。請登出並切換帳號。</p>
+                        <p>這不是學校帳號！🍡系統已阻擋非 @std.tcfsh.tc.edu.tw 之帳號進行投票。請登出並切換帳號。</p>
                       </div>
                     )}
                   </div>
