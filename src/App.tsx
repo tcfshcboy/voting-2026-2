@@ -155,31 +155,33 @@ export default function App() {
     let retryTimer: number;
 
     const initializeGoogle = () => {
-      if (step === 4 && !user && window.google?.accounts?.id && !window.__googleInitDone) {
+      if (step === 4 && !user && window.google?.accounts?.id) {
         try {
-          window.__googleInitDone = true;
-          window.google.accounts.id.initialize({
-            client_id: GOOGLE_CLIENT_ID,
-            callback: (res: any) => {
-              const base64Url = res.credential.split('.')[1];
-              const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-              const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => 
-                '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
-              ).join(''));
-              const payload = JSON.parse(jsonPayload);
-              
-              setUser({ 
-                email: payload.email, 
-                name: payload.name, 
-                picture: payload.picture, 
-                credential: res.credential 
-              });
-            }
-          });
+          if (!window.__googleInitDone) {
+            window.__googleInitDone = true;
+            window.google.accounts.id.initialize({
+              client_id: GOOGLE_CLIENT_ID,
+              callback: (res: any) => {
+                const base64Url = res.credential.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => 
+                  '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+                ).join(''));
+                const payload = JSON.parse(jsonPayload);
+                
+                setUser({ 
+                  email: payload.email, 
+                  name: payload.name, 
+                  picture: payload.picture, 
+                  credential: res.credential 
+                });
+              }
+            });
+          }
 
           const btnDiv = document.getElementById("google-signin-btn");
-          if (btnDiv) {
-            btnDiv.innerHTML = ''; 
+          // Always try to render if the div exists and is empty
+          if (btnDiv && btnDiv.innerHTML === '') {
             window.google.accounts.id.renderButton(btnDiv, { 
               theme: "filled_black", 
               size: "large", 
@@ -568,6 +570,7 @@ export default function App() {
                     </div>
                   )}
                 </div>
+
                 {!user ? (
                   <div className="space-y-6 relative z-20">
                     <p className="text-sm text-zinc-200 text-center font-bold">請使用 TCFSH 帳號登入送出投票</p>
