@@ -20,7 +20,9 @@ import {
   UserCheck,
   User,
   ShieldAlert,
-  Instagram
+  Instagram,
+  Maximize2,
+  X
 } from 'lucide-react';
 
 declare global {
@@ -129,6 +131,7 @@ export default function App() {
   const [honeypot, setHoneypot] = useState('');
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [activeLightbox, setActiveLightbox] = useState<string | null>(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -342,19 +345,47 @@ export default function App() {
               >
                 {/* Photo Area */}
                 <div className="w-full aspect-square sm:aspect-[4/3] bg-zinc-950 relative overflow-hidden flex items-center justify-center shrink-0 border-b border-zinc-800/50">
-                  <img src={photoUrl} alt={nominee.name} loading="lazy" className={`w-full h-full object-cover transition-transform duration-500 ${!isDisabled && !isSelected && 'group-hover:scale-105'} ${!nominee.photo && 'opacity-80'}`} />
+                  {/* Option 2: Blurred background photo copy */}
+                  <img 
+                    src={photoUrl} 
+                    alt="" 
+                    className="absolute inset-0 w-full h-full object-cover blur-xl opacity-40 scale-110 select-none pointer-events-none" 
+                  />
+                  {/* Centered complete/contained photo */}
+                  <img 
+                    src={photoUrl} 
+                    alt={nominee.name} 
+                    loading="lazy" 
+                    className={`relative z-10 max-h-full max-w-full object-contain transition-transform duration-500 ${!isDisabled && !isSelected && 'group-hover:scale-105'} ${!nominee.photo && 'opacity-80'}`} 
+                  />
+                  
                   {isSelected && (
-                    <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] flex items-center justify-center">
+                    <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] flex items-center justify-center z-20">
                       <div className={`size-16 rounded-full flex items-center justify-center ${catConfig.color} bg-black/80 shadow-xl border border-current`}>
                          <CheckCircle2 className="size-8" />
                       </div>
                     </div>
                   )}
-                  <div className="absolute top-3 left-3 flex gap-2">
+                  
+                  {/* Floating tags */}
+                  <div className="absolute top-3 left-3 flex gap-2 z-20">
                     <span className={`inline-flex items-center text-xs font-black px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md text-white border border-white/10 shadow-sm`}>
                       {nominee.classNum} 班
                     </span>
                   </div>
+
+                  {/* Option 1 & 2 premium optimization: Easy one-click full-screen Lightbox trigger */}
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveLightbox(photoUrl);
+                    }}
+                    className="absolute bottom-3 right-3 z-30 flex items-center gap-1.5 text-xs font-bold px-2.5 py-1.5 rounded-lg bg-black/80 hover:bg-black text-lime-400 hover:text-white border border-white/10 shadow-lg backdrop-blur-md transition-all hover:scale-105 active:scale-95"
+                    title="放大觀看完整相片"
+                  >
+                    <Maximize2 className="size-3.5" />
+                    <span>放大</span>
+                  </button>
                 </div>
 
                 {/* Content Area */}
@@ -612,6 +643,46 @@ export default function App() {
       </main>
       
       <div className="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-lime-400 via-cyan-400 to-lime-400" />
+
+      {/* 燈箱放大功能 (AnimatePresence) */}
+      <AnimatePresence>
+        {activeLightbox && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActiveLightbox(null)}
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex flex-col items-center justify-center p-4 cursor-zoom-out"
+          >
+            {/* 關閉按鈕 */}
+            <button 
+              onClick={() => setActiveLightbox(null)}
+              className="absolute top-4 right-4 z-[110] p-3 rounded-full bg-zinc-900 border border-zinc-800 text-white hover:bg-zinc-800 transition-all hover:scale-110 active:scale-95"
+              aria-label="關閉"
+            >
+              <X className="size-6" />
+            </button>
+            
+            <motion.div
+              initial={{ scale: 0.95, y: 15 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 15 }}
+              transition={{ type: "spring", damping: 25, stiffness: 350 }}
+              className="relative max-w-full max-h-[85vh] flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img 
+                src={activeLightbox} 
+                alt="完整相片" 
+                className="max-w-[95vw] md:max-w-[80vw] max-h-[80vh] object-contain rounded-2xl shadow-2xl border border-zinc-800"
+              />
+            </motion.div>
+            <p className="text-zinc-500 text-sm mt-4 font-black font-semi tracking-wider animate-pulse select-none">
+              點擊隨處即可關閉
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
