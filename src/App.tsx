@@ -95,7 +95,7 @@ const NOMINEES: Nominee[] = [
   { id: '218-林煒芢-校花', category: '校花', classNum: '218', name: '林煒芢', ig: '@anon_tokyo._.william', reason: '騷', photo: 'https://i.ibb.co/KzRcMrC4/218.jpg' },
   { id: '219-邱琬婷-校花', category: '校花', classNum: '219', name: '邱琬婷', ig: '未提供' },
   { id: '221-施竣揚-校花', category: '校花', classNum: '221', name: '施竣揚', ig: '@yang_.511_dd', reason: '中華民國國民大會受全體國民之付託，依據孫中山先生創立中華民國遺教，為鞏固國權，奠定社會安寧，故推舉一位coser競逐校花', photo: 'https://i.ibb.co/Wvn3GP5d/221.jpg' },
-  { id: '225-林隆諺-校花', category: '校花', classNum: '226', name: '林隆諺', ig: '@michael120tw', reason: '氣質高冷', photo: 'https://i.ibb.co/gn1SfbJ/226.jpg' },
+  { id: '226-林隆諺-校花', category: '校花', classNum: '226', name: '林隆諺', ig: '@michael120tw', reason: '氣質高冷', photo: 'https://i.ibb.co/gn1SfbJ/226.jpg' },
 
   // 校猴
   { id: '101-劉勳立-校猴', category: '校猴', classNum: '101', name: '劉勳立', ig: '@_lsl_rr' },
