@@ -72,7 +72,7 @@ const NOMINEES: Nominee[] = [
   { id: '209-張弋安-校草', category: '校草', classNum: '209', name: '張弋安', ig: '未提供' },
   { id: '210-詹純君-校草', category: '校草', classNum: '210', name: '詹純君', ig: '@cjyun._.06.08', reason: '他是詹純君', photo: 'https://i.ibb.co/LDrTXBcC/210.jpg' },
   { id: '216-李安石-校草', category: '校草', classNum: '216', name: '李安石', ig: '高冷男神拒絕社群', reason: '本人又帥又幽默，籃球排球還超強根本暈爛' },
-  { id: '217-賴柚樺-校草', category: '校草', classNum: '217', name: '賴柚樺', ig: '@luke._.0315', reason: '又帥又會拉二胡，誰不暈呢？', photo: 'https://i.ibb.co/xSRRn9Jg/217.jpg'},
+  { id: '217-賴柚樺-校草', category: '校草', classNum: '217', name: '賴柚樺', ig: '@luke._.0315', reason: '又帥又會拉二胡，誰不暈呢？' },
 
   // 校花
   { id: '102-游本琦-校花', category: '校花', classNum: '102', name: '游本琦', ig: '未提供', reason: '漂亮' },
@@ -91,7 +91,7 @@ const NOMINEES: Nominee[] = [
   { id: '214-陳竑智-校花', category: '校花', classNum: '214', name: '陳竑智', ig: '@horacechen1125', reason: '充滿氣質與魅力，傲嬌' },
   { id: '215-蕭學寓-校花', category: '校花', classNum: '215', name: '蕭學寓', ig: '@snowfish_0219', reason: '可愛黑皮小蘿莉', photo: 'https://i.ibb.co/tMGd4P7z/215.jpg' },
   { id: '216-蔡士捷-校花', category: '校花', classNum: '216', name: '蔡士捷', ig: '@walrusqqq', reason: '他會跟別人一起去日本，還會留草莓顆粒給別人吃', photo: 'https://i.ibb.co/VchxXjvF/216.jpg' },
-  { id: '217-賴柚樺-校花', category: '校花', classNum: '217', name: '賴柚樺', ig: '@luke._.0315', photo: 'https://i.ibb.co/xSRRn9Jg/217.jpg' },
+  { id: '217-賴柚樺-校花', category: '校花', classNum: '217', name: '賴柚樺', ig: '@luke._.0315' },
   { id: '218-林煒芢-校花', category: '校花', classNum: '218', name: '林煒芢', ig: '@anon_tokyo._.william', reason: '騷', photo: 'https://i.ibb.co/KzRcMrC4/218.jpg' },
   { id: '219-邱琬婷-校花', category: '校花', classNum: '219', name: '邱琬婷', ig: '未提供' },
   { id: '221-施竣揚-校花', category: '校花', classNum: '221', name: '施竣揚', ig: '@yang_.511_dd', reason: '中華民國國民大會受全體國民之付託，依據孫中山先生創立中華民國遺教，為鞏固國權，奠定社會安寧，故推舉一位coser競逐校花', photo: 'https://i.ibb.co/Wvn3GP5d/221.jpg' },
@@ -394,7 +394,7 @@ export default function App() {
                 <div className="p-5 flex flex-col gap-3 w-full flex-grow">
                   <div className="flex items-start justify-between gap-2">
                     <h3 className={`font-black text-2xl ${isSelected ? 'text-white' : 'text-zinc-100'}`}>
-                      {nominee.name}
+                      {categoryName === '校草' ? '🌿' : categoryName === '校花' ? '🌸' : '🐒'} {nominee.name}
                     </h3>
                   </div>
                   
@@ -476,7 +476,6 @@ export default function App() {
                   <span className="text-cyan-400 underline decoration-cyan-400/30 block">
                     TCFSH 校園風雲人物！
                   </span>
-                  <span className="text-lime-400 text-2xl">🍡歡迎回報問題與更新照片、資訊欄位!</span>
                 </h1>
               </div>
 
@@ -538,7 +537,9 @@ export default function App() {
                       <ul className="space-y-3">
                         {votes[cat.id].map(v => (
                           <li key={v.id} className="flex justify-between items-center bg-black/50 p-3 rounded-xl border border-zinc-800/50">
-                            <span className="font-bold text-white">{v.name}</span>
+                            <span className="font-bold text-white">
+                              {cat.id === '校草' ? '🌿' : cat.id === '校花' ? '🌸' : '🐒'} {v.name}
+                            </span>
                             <span className="text-xs font-mono text-zinc-300 bg-zinc-800 px-2 py-1 rounded">{v.classNum}</span>
                           </li>
                         ))}
