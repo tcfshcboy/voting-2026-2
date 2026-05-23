@@ -290,12 +290,22 @@ export default function App() {
               🍡您已完成投票 ! 敬請期待投票結果~<br/>也趕快告訴大家來投票吧 !
             </p>
           </div>
-          <button
-            onClick={() => window.location.reload()}
-            className="mt-6 px-6 py-3 bg-zinc-800 text-zinc-300 font-bold rounded-2xl hover:bg-zinc-700 transition"
-          >
-            返回首頁
-          </button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+            <a
+              href="https://script.google.com/macros/s/AKfycbx_ZfU7eyEYbu2qcrlEVJuLSUJ7eYJlcE8eH8Aao7zz1nHj1Ov6Bx10wguT5CAyvfg/exe"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-3 w-full sm:w-auto bg-gradient-to-r from-lime-400 to-cyan-400 text-black font-black text-lg rounded-2xl transition-all shadow-[0_0_20px_rgba(163,230,53,0.3)] hover:scale-105 hover:shadow-[0_0_30px_rgba(163,230,53,0.5)] active:scale-95 flex items-center justify-center whitespace-nowrap"
+            >
+              觀看即時顯示版 ✨
+            </a>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-6 py-3 w-full sm:w-auto bg-zinc-800 text-zinc-300 font-bold rounded-2xl hover:bg-zinc-700 transition"
+            >
+              返回首頁
+            </button>
+          </div>
         </motion.div>
       </div>
     );
