@@ -292,12 +292,12 @@ export default function App() {
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
             <a
-              href="https://script.google.com/macros/s/AKfycbx_ZfU7eyEYbu2qcrlEVJuLSUJ7eYJlcE8eH8Aao7zz1nHj1Ov6Bx10wguT5CAyvfg/exe"
+              href="https://script.google.com/macros/s/AKfycbx_ZfU7eyEYbu2qcrlEVJuLSUJ7eYJlcE8eH8Aao7zz1nHj1Ov6Bx10wguT5CAyvfg/exec"
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-3 w-full sm:w-auto bg-gradient-to-r from-lime-400 to-cyan-400 text-black font-black text-lg rounded-2xl transition-all shadow-[0_0_20px_rgba(163,230,53,0.3)] hover:scale-105 hover:shadow-[0_0_30px_rgba(163,230,53,0.5)] active:scale-95 flex items-center justify-center whitespace-nowrap"
             >
-              觀看即時顯示版 ✨
+              觀看票選結果 📊✨
             </a>
             <button
               onClick={() => window.location.reload()}
@@ -489,6 +489,16 @@ export default function App() {
                 </h1>
               </div>
 
+              {/* 投票結束宣佈卡片 */}
+              <div className="bg-gradient-to-r from-red-500/20 via-pink-500/10 to-cyan-500/20 border-2 border-red-500/50 p-6 sm:p-8 rounded-[2rem] text-center space-y-3 shadow-[0_0_30px_rgba(239,68,68,0.15)]">
+                <h2 className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-pink-400 to-yellow-400">
+                  🎉 投票時間已結束！
+                </h2>
+                <p className="text-white text-base sm:text-lg font-black tracking-wide">
+                  校園風雲人物票選結果已出爐 ! 🎉🎉🎉
+                </p>
+              </div>
+
               <div className="bg-zinc-900/50 border border-zinc-800 p-6 sm:p-8 rounded-3xl space-y-6">
                 <div className="flex items-center gap-3 pb-4 border-b border-zinc-800">
                   <Info className="text-lime-400 size-6" />
@@ -511,12 +521,20 @@ export default function App() {
                 </ul>
               </div>
 
-              <div className="pt-4">
+              <div className="pt-4 flex flex-col sm:flex-row gap-4">
+                <a 
+                  href="https://script.google.com/macros/s/AKfycbx_ZfU7eyEYbu2qcrlEVJuLSUJ7eYJlcE8eH8Aao7zz1nHj1Ov6Bx10wguT5CAyvfg/exec"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 h-16 bg-gradient-to-r from-lime-400 via-emerald-400 to-cyan-400 text-black font-black text-lg sm:text-xl rounded-2xl transition-all flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95 shadow-[0_0_35px_rgba(163,230,53,0.3)] hover:shadow-[0_0_45px_rgba(163,230,53,0.55)]"
+                >
+                  🏆 觀看票選結果 📊✨
+                </a>
                 <button 
                   onClick={() => setStep(1)} 
-                  className="w-full h-16 bg-gradient-to-r from-lime-400 to-cyan-400 text-black font-black text-lg rounded-2xl transition-all flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95 shadow-[0_0_30px_rgba(163,230,53,0.15)]"
+                  className="flex-1 h-16 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 border border-zinc-700 font-bold text-lg rounded-2xl transition-all flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-95 shadow-md"
                 >
-                  同意投票規則並開始 <ChevronRight size={24} />
+                  觀看2026候選人 <ChevronRight size={24} />
                 </button>
               </div>
             </motion.div>
@@ -563,84 +581,65 @@ export default function App() {
                 ))}
               </div>
 
-              <div className={`p-8 rounded-[2.5rem] border-2 transition-all duration-500 relative z-10 ${
-                user 
-                  ? isSchoolAccount ? 'bg-zinc-900 border-lime-400/20' : 'bg-red-950/20 border-red-500/50' 
-                  : 'bg-zinc-950 border-cyan-400/50 shadow-[0_0_30px_rgba(34,211,238,0.1)]'
-              }`}>
+              {/* 2026 TCFSH 風雲人物選舉結果公告 */}
+              <div className="bg-gradient-to-r from-lime-500/10 via-emerald-500/5 to-cyan-500/10 border-2 border-lime-400/30 p-8 sm:p-10 rounded-[2.5rem] text-center space-y-6 shadow-[0_0_30px_rgba(163,230,53,0.15)] relative z-20">
+                <div className="inline-flex p-4 rounded-3xl bg-lime-400/10 text-lime-400">
+                  <span className="text-4xl">🏆</span>
+                </div>
+                <div className="space-y-3 max-w-2xl mx-auto">
+                  <h3 className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-lime-400 to-cyan-400">
+                    票選活動已順利結束！
+                  </h3>
+                  <p className="text-zinc-200 text-lg sm:text-xl font-bold leading-relaxed">
+                    「2026 TCFSH 校園風雲人物」的選舉結果將於 IG 版完整公告！
+                  </p>
+                </div>
+                <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-lg mx-auto">
+                  <a 
+                    href="https://script.google.com/macros/s/AKfycbx_ZfU7eyEYbu2qcrlEVJuLSUJ7eYJlcE8eH8Aao7zz1nHj1Ov6Bx10wguT5CAyvfg/exec"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-lime-400 to-cyan-400 text-black font-black text-lg rounded-2xl transition-all shadow-[0_0_30px_rgba(163,230,53,0.3)] hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+                  >
+                    觀看票選結果 📊✨
+                  </a>
+                  <button 
+                    onClick={() => setStep(3)} 
+                    className="w-full sm:w-auto px-6 py-4 bg-zinc-900 border border-zinc-800 text-zinc-300 font-bold rounded-2xl hover:bg-zinc-800 hover:text-white transition-all flex items-center justify-center gap-1.5"
+                  >
+                    <ChevronLeft size={18} /> 返回修改
+                  </button>
+                </div>
+              </div>
+
+              {/* 褪色與失效：舊的一中生身分驗證與送出按鈕的版面 */}
+              <div className="opacity-15 pointer-events-none select-none grayscale cursor-not-allowed border border-dashed border-zinc-800 p-8 rounded-[2.5rem] space-y-6 relative z-10">
                 <div className="flex justify-between items-center mb-6">
                   <div className="flex items-center gap-3">
                     <div className="p-2 rounded-xl bg-cyan-400/10 text-cyan-400">
                       <ShieldCheck className="size-6" />
                     </div>
-                    <span className="font-black text-xl text-white">一中生身分驗證</span>
+                    <span className="font-black text-xl text-white">一中生身分驗證（已關閉）</span>
                   </div>
-                  {user && isSchoolAccount && (
-                    <div className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-lime-400/50 bg-lime-400/10 text-lime-400 font-bold text-xs">
-                      <UserCheck className="size-3" /> 認證通過
-                    </div>
-                  )}
                 </div>
 
-                {!user ? (
-                  <div className="space-y-6 relative z-20">
-                    <p className="text-sm text-zinc-200 text-center font-bold">請使用 TCFSH 帳號登入送出投票</p>
-                    <div className="flex justify-center relative pointer-events-auto">
-                      <div id="google-signin-btn" className="h-12 flex justify-center w-[300px]"></div>
+                <div className="space-y-6 relative">
+                  <p className="text-sm text-zinc-200 text-center font-bold">目前系統投票已截止</p>
+                  <div className="flex justify-center relative pointer-events-auto">
+                    <div className="h-12 flex justify-center w-[300px] border border-zinc-700 bg-black/50 text-zinc-500 text-xs font-bold items-center rounded-full">
+                      Google 登入（功能已停用）
                     </div>
                   </div>
-                ) : (
-                  <div className="space-y-4">
-                    <div className={`flex items-center justify-between bg-black/40 p-4 rounded-2xl border ${isSchoolAccount ? 'border-zinc-800' : 'border-red-900/50 bg-red-950/30'}`}>
-                      <div className="flex items-center gap-4">
-                        <div className="relative">
-                          <img src={user.picture} className="size-12 rounded-full border-2 border-zinc-800" alt="avatar" />
-                          <div className={`absolute -bottom-1 -right-1 size-5 border-2 border-zinc-900 rounded-full flex items-center justify-center ${isSchoolAccount ? 'bg-lime-400' : 'bg-red-500'}`}>
-                            {isSchoolAccount ? <CheckCircle2 className="size-3 text-black" /> : <ShieldAlert className="size-3 text-white" />}
-                          </div>
-                        </div>
-                        <div className="flex flex-col">
-                          <span className="font-black text-sm">{user.name}</span>
-                          <span className={`text-[10px] font-mono ${isSchoolAccount ? 'text-zinc-500' : 'text-red-400 font-bold'}`}>{user.email}</span>
-                        </div>
-                      </div>
-                      <button 
-                        onClick={() => setUser(null)} 
-                        className="size-10 flex items-center justify-center rounded-xl bg-zinc-800 text-zinc-400 hover:bg-zinc-700 transition-colors"
-                      >
-                        <LogOut size={18}/>
-                      </button>
-                    </div>
+                </div>
 
-                    {!isSchoolAccount && (
-                      <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-bold flex items-start gap-2">
-                        <AlertTriangle className="size-5 shrink-0" />
-                        <p>這不是學校帳號！🍡系統已阻擋非 @std.tcfsh.tc.edu.tw 之帳號進行投票。請登出並切換帳號。</p>
-                      </div>
-                    )}
-                  </div>
-                )}
-                
-                <input type="text" value={honeypot} onChange={e => setHoneypot(e.target.value)} className="hidden" tabIndex={-1} autoComplete="off" />
-              </div>
-
-              <div className="flex gap-4">
-                <button 
-                  onClick={() => setStep(3)} 
-                  disabled={isSubmitting}
-                  className="flex-1 py-4 bg-zinc-900 border border-zinc-800 text-zinc-400 font-bold rounded-2xl hover:bg-zinc-800 transition-all disabled:opacity-50"
-                >
-                  返回修改
-                </button>
-                {user && isSchoolAccount && (
-                  <button 
-                    onClick={handleSubmit} 
-                    disabled={isSubmitting} 
-                    className="flex-[2] h-[56px] bg-gradient-to-r from-lime-400 to-cyan-400 text-black font-black rounded-2xl transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(163,230,53,0.2)] disabled:opacity-50 disabled:grayscale"
-                  >
-                    {isSubmitting ? '正在寫入資料庫...' : <><Send size={20} /> 送出投票</>}
+                <div className="flex gap-4 pt-4">
+                  <button disabled className="flex-1 py-4 bg-zinc-900 border border-zinc-8s00 text-zinc-600 font-bold rounded-2xl cursor-not-allowed">
+                    返回修改
                   </button>
-                )}
+                  <button disabled className="flex-[2] h-[56px] bg-zinc-8ba bg-zinc-800 text-zinc-650 font-black rounded-2xl cursor-not-allowed flex items-center justify-center gap-3">
+                    系統投票已截止
+                  </button>
+                </div>
               </div>
             </motion.div>
           )}
